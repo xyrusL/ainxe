@@ -137,7 +137,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen sm:h-screen w-screen overflow-x-hidden sm:overflow-hidden bg-[#070b14] text-[#d6e3f0] relative flex flex-col justify-between select-none font-['Space_Mono',monospace]">
+    <div className="h-screen h-[100dvh] w-screen w-full overflow-hidden bg-[#070b14] text-[#d6e3f0] relative flex flex-col justify-between select-none font-['Space_Mono',monospace]">
       {/* Strict Tab Title: "AINXE Studio" */}
       <SeoHead
         title="AINXE Studio"
@@ -233,7 +233,7 @@ export function App() {
       {/* =====================================================================
           TOP NAVIGATION BAR (Properly balanced, no tall button, AINXE Studios)
       ====================================================================== */}
-      <header className="relative z-20 w-full max-w-5xl mx-auto px-4 sm:px-6 pt-4 sm:pt-6 pb-2 flex items-center justify-between">
+      <header className="relative z-30 w-full max-w-5xl mx-auto px-4 sm:px-6 pt-3 sm:pt-6 pb-2 flex items-center justify-between">
         {/* Left: Brand Icon + Title (AINXE Studios) */}
         <button
           type="button"
@@ -243,7 +243,7 @@ export function App() {
           <div className="p-1 rounded bg-white/5 border border-white/10 group-hover:border-sky-400/40 transition-colors">
             <AinxeIcon size={18} />
           </div>
-          <span className="font-bold text-xs sm:text-sm tracking-wide text-white">
+          <span className="font-bold text-xs sm:text-sm tracking-wide text-white whitespace-nowrap">
             AINXE Studios
           </span>
         </button>
@@ -308,51 +308,60 @@ export function App() {
           <button
             type="button"
             onClick={() => handleButtonClick(() => setMobileMenuOpen(!mobileMenuOpen))}
-            className="md:hidden p-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 hover:text-white"
+            className="md:hidden p-1.5 rounded-lg bg-white/5 border border-white/10 text-slate-300 hover:text-white cursor-pointer"
+            aria-label="Toggle Navigation Menu"
           >
             <List size={18} />
           </button>
         </div>
-      </header>
 
-      {/* Mobile Drawer Dropdown */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="md:hidden relative z-30 mx-4 p-4 rounded-2xl bg-[#0c121e]/95 border border-white/10 shadow-xl space-y-3 text-center text-xs"
-          >
-            <button
-              type="button"
-              onClick={openFeaturesModal}
-              className="block w-full py-2 hover:text-sky-300 transition-colors"
-            >
-              Features
-            </button>
-            <button
-              type="button"
-              onClick={() => handleButtonClick(() => { setActiveModal('about'); setMobileMenuOpen(false); })}
-              className="block w-full py-2 hover:text-sky-300 transition-colors"
-            >
-              About
-            </button>
-            <button
-              type="button"
-              onClick={() => handleButtonClick(() => { setActiveModal('contact'); setMobileMenuOpen(false); })}
-              className="block w-full py-2 hover:text-sky-300 transition-colors"
-            >
-              Contact
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        {/* Mobile Floating Popup Menu (Floats OVER the page without pushing main content down) */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <>
+              {/* Invisible click-away backdrop */}
+              <div
+                className="md:hidden fixed inset-0 z-40 bg-black/20"
+                onClick={() => setMobileMenuOpen(false)}
+              />
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: -6 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: -6 }}
+                transition={{ duration: 0.15 }}
+                className="md:hidden absolute right-4 top-12 z-50 w-44 rounded-xl bg-[#0c121e]/98 border border-white/15 shadow-2xl p-1.5 backdrop-blur-xl space-y-0.5 text-left text-xs font-bold"
+              >
+                <button
+                  type="button"
+                  onClick={openFeaturesModal}
+                  className="w-full text-left px-3 py-2 rounded-lg text-slate-200 hover:text-white hover:bg-white/10 transition-colors"
+                >
+                  Features
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleButtonClick(() => { setActiveModal('about'); setMobileMenuOpen(false); })}
+                  className="w-full text-left px-3 py-2 rounded-lg text-slate-200 hover:text-white hover:bg-white/10 transition-colors"
+                >
+                  About
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleButtonClick(() => { setActiveModal('contact'); setMobileMenuOpen(false); })}
+                  className="w-full text-left px-3 py-2 rounded-lg text-slate-200 hover:text-white hover:bg-white/10 transition-colors"
+                >
+                  Contact
+                </button>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+      </header>
 
       {/* =====================================================================
           MAIN HERO TEXT & 3 PHOSPHOR ICONS (Clear high contrast in dark sky)
       ====================================================================== */}
-      <main className="relative z-10 w-full max-w-2xl sm:max-w-3xl mx-auto px-4 sm:px-6 text-center pt-1 sm:pt-4 my-auto">
+      <main className="relative z-10 w-full max-w-2xl sm:max-w-3xl mx-auto px-4 sm:px-6 text-center pt-0.5 sm:pt-4 my-auto">
         {/* Typing Headline with blinking cursor */}
         <h1 className="font-bold text-2xl sm:text-4xl md:text-[2.75rem] tracking-tight text-white leading-[1.25] min-h-[3rem] sm:min-h-[4rem]">
           <span>{displayedLine1}</span>
@@ -368,7 +377,7 @@ export function App() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-2.5 sm:mt-4 max-w-lg mx-auto text-[10px] sm:text-xs text-slate-300 leading-relaxed font-normal"
+          className="mt-2 sm:mt-4 max-w-lg mx-auto text-[10px] sm:text-xs text-slate-300 leading-relaxed font-normal"
         >
           In the rush of digital life, imagine a space that feels like a deep breath
           — gentle and grounding. Here, you can reflect, create, or simply be,
@@ -380,7 +389,7 @@ export function App() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-4 sm:mt-7 grid grid-cols-3 gap-2 sm:gap-6 max-w-xl mx-auto"
+          className="mt-3.5 sm:mt-7 grid grid-cols-3 gap-2 sm:gap-6 max-w-xl mx-auto"
         >
           {/* Item 1: Mindful Tools */}
           <div
@@ -431,26 +440,26 @@ export function App() {
           </div>
         </motion.div>
 
-        {/* Dual Action Pill Buttons */}
+        {/* Dual Action Pill Buttons (Compact & refined) */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
-          className="mt-5 sm:mt-7 flex items-center justify-center gap-2.5 sm:gap-3"
+          className="mt-4 sm:mt-7 flex items-center justify-center gap-2 sm:gap-3"
         >
           <button
             type="button"
             onClick={() => handleButtonClick(() => setActiveModal('contact'))}
-            className="inline-flex items-center justify-center gap-1.5 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-white font-bold text-xs sm:text-sm shadow-md cursor-pointer bg-[#ef5d52] hover:bg-[#df4f44] hover:shadow-[0_6px_18px_rgba(239,93,82,0.45)] transition-all transform hover:-translate-y-0.5"
+            className="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-full text-white font-bold text-[11px] sm:text-xs shadow-md cursor-pointer bg-[#ef5d52] hover:bg-[#df4f44] hover:shadow-[0_6px_18px_rgba(239,93,82,0.45)] transition-all transform hover:-translate-y-0.5"
           >
             <span>Start Your Journey</span>
-            <ArrowRight size={13} weight="bold" />
+            <ArrowRight size={12} weight="bold" />
           </button>
 
           <button
             type="button"
             onClick={openFeaturesModal}
-            className="inline-flex items-center justify-center gap-1.5 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-[#d6e3f0] hover:text-white font-bold text-xs sm:text-sm cursor-pointer bg-white/10 hover:bg-white/15 border border-white/15 backdrop-blur-md transition-all transform hover:-translate-y-0.5"
+            className="inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 sm:px-5 sm:py-2.5 rounded-full text-[#d6e3f0] hover:text-white font-bold text-[11px] sm:text-xs cursor-pointer bg-white/10 hover:bg-white/15 border border-white/15 backdrop-blur-md transition-all transform hover:-translate-y-0.5"
           >
             <span>Explore Features</span>
           </button>
