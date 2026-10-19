@@ -516,7 +516,7 @@ export function App() {
       </footer>
 
       {/* =====================================================================
-          MODAL OVERLAYS
+          MODAL OVERLAYS (Polished, zero overflow, fully mobile optimized)
       ====================================================================== */}
       <AnimatePresence>
         {activeModal !== 'none' && (
@@ -524,7 +524,7 @@ export function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#070b14]/85 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-[#070b14]/85 backdrop-blur-md overflow-hidden"
             onClick={() => handleButtonClick(() => setActiveModal('none'))}
           >
             <motion.div
@@ -533,246 +533,249 @@ export function App() {
               exit={{ scale: 0.94, opacity: 0, y: 12 }}
               transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-md rounded-2xl bg-[#0c121e] border border-white/10 p-6 sm:p-7 shadow-2xl text-left"
+              className="relative w-full max-w-[360px] sm:max-w-md max-h-[calc(100dvh-1.5rem)] sm:max-h-[calc(100dvh-2.5rem)] flex flex-col rounded-2xl bg-[#0c121e]/98 border border-white/15 shadow-2xl overflow-hidden text-left"
             >
               {/* Close Button */}
               <button
                 type="button"
                 onClick={() => handleButtonClick(() => setActiveModal('none'))}
-                className="absolute top-4 right-4 p-1.5 rounded-full bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors cursor-pointer"
+                className="absolute top-3.5 right-3.5 z-20 p-1.5 rounded-full bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white transition-colors cursor-pointer"
                 title="Close"
               >
                 <X size={15} />
               </button>
 
-              {/* MODAL 1: FEATURES -> ( x _ x ) DEAD ERROR TEXT EMOJI STATE */}
-              {activeModal === 'features' && (
-                <div className="text-center py-4 space-y-4">
-                  <div className="text-4xl sm:text-5xl font-mono text-rose-400 tracking-wider animate-pulse">
-                    ( x _ x )
-                  </div>
+              {/* Scrollable Modal Content (Constrained to max-h to prevent page scrollbars) */}
+              <div className="overflow-y-auto p-4 sm:p-6 custom-scrollbar">
+                {/* MODAL 1: FEATURES -> ( x _ x ) DEAD ERROR TEXT EMOJI STATE */}
+                {activeModal === 'features' && (
+                  <div className="text-center py-1 space-y-3 sm:space-y-3.5">
+                    <div className="text-3xl sm:text-4xl font-mono text-rose-400 tracking-wider animate-pulse pt-1">
+                      ( x _ x )
+                    </div>
 
-                  <div>
-                    <h2 className="font-bold text-xl text-white">
-                      Oops! No Features Yet
-                    </h2>
-                    <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-                      We don&rsquo;t actually have &ldquo;features&rdquo; built yet... It&rsquo;s just a cozy
-                      aesthetic landing page for now! x_x
-                    </p>
-                  </div>
-
-                  <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/5 text-xs text-slate-400 leading-relaxed text-left">
-                    💡 <strong>Need an app or website built?</strong><br />
-                    I can help you build your custom mobile app, website, or software project. Hit the button below and let&rsquo;s talk!
-                  </div>
-
-                  <div className="pt-2 flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => handleButtonClick(() => setActiveModal('contact'))}
-                      className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-full text-white font-bold text-xs bg-[#ef5d52] hover:bg-[#df4f44] transition-colors cursor-pointer shadow-md"
-                    >
-                      <span>Take Me To Contact</span>
-                      <ArrowRight size={13} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleButtonClick(() => setActiveModal('none'))}
-                      className="py-2.5 px-4 rounded-full text-slate-300 hover:text-white font-bold text-xs bg-white/5 hover:bg-white/10 border border-white/10 transition-colors cursor-pointer"
-                    >
-                      Close (x_x)
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* MODAL 2: ABOUT -> CASUAL PERSONAL MAKER TONE (NOT FORMAL BIG TECH) */}
-              {activeModal === 'about' && (
-                <div className="space-y-4">
-                  <div>
-                    <span className="text-[10px] text-sky-400 uppercase tracking-widest">
-                      Hey there! 👋
-                    </span>
-                    <h2 className="font-bold text-xl text-white mt-0.5">
-                      About AINXE Studios
-                    </h2>
-                  </div>
-
-                  <p className="text-xs text-slate-300 leading-relaxed">
-                    No formal big-tech corporate talk here! I&rsquo;m building <strong>AINXE</strong> as my personal project
-                    playground to craft clean software, quiet websites, and focused apps.
-                  </p>
-
-                  <div className="p-3.5 rounded-xl bg-sky-500/10 border border-sky-500/20 text-xs text-sky-200 leading-relaxed">
-                    ✨ <strong>Do you have a project, app, or website to build?</strong><br />
-                    I can definitely help you design and build that (with money, hehe 😉).
-                  </div>
-
-                  <p className="text-xs text-slate-400 leading-relaxed">
-                    Whether you need a custom web platform, a mobile app, or backend tooling — let&rsquo;s connect and make it happen.
-                  </p>
-
-                  <button
-                    type="button"
-                    onClick={() => handleButtonClick(() => setActiveModal('contact'))}
-                    className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-full text-white font-bold text-xs bg-[#ef5d52] hover:bg-[#df4f44] transition-colors cursor-pointer shadow-md mt-2"
-                  >
-                    <span>Let&rsquo;s Build Something →</span>
-                  </button>
-                </div>
-              )}
-
-              {/* MODAL 3: CONTACT / INQUIRY */}
-              {activeModal === 'contact' && (
-                <div>
-                  {inquirySent ? (
-                    <div className="py-5 text-center space-y-3">
-                      <CheckCircle size={36} weight="duotone" className="text-emerald-400 mx-auto" />
-                      <h3 className="font-bold text-lg text-white">
-                        Message Sent! 🎉
-                      </h3>
-                      <p className="text-xs text-slate-300 max-w-xs mx-auto leading-relaxed">
-                        Got your note! I&rsquo;ll review your {inquiryType} project and reply directly to{' '}
-                        <strong className="text-white">{clientEmail}</strong> soon.
+                    <div>
+                      <h2 className="font-bold text-lg sm:text-xl text-white">
+                        Oops! No Features Yet
+                      </h2>
+                      <p className="text-[11px] sm:text-xs text-slate-300 mt-1 sm:mt-1.5 leading-relaxed">
+                        We don&rsquo;t actually have &ldquo;features&rdquo; built yet... It&rsquo;s just a cozy
+                        aesthetic landing page for now! x_x
                       </p>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 text-[11px] sm:text-xs text-slate-300 leading-relaxed text-left">
+                      💡 <strong className="text-white">Need an app or website built?</strong><br />
+                      I can help you build your custom mobile app, website, or software project. Hit the button below and let&rsquo;s talk!
+                    </div>
+
+                    <div className="pt-1.5 flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                       <button
                         type="button"
-                        onClick={() => {
-                          setInquirySent(false);
-                          setClientEmail('');
-                          setProjectBrief('');
-                          setActiveModal('none');
-                        }}
-                        className="mt-3 px-5 py-2 rounded-full text-xs font-bold text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/10 transition-colors cursor-pointer"
+                        onClick={() => handleButtonClick(() => setActiveModal('contact'))}
+                        className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-full text-white font-bold text-xs bg-[#ef5d52] hover:bg-[#df4f44] transition-colors cursor-pointer shadow-md"
                       >
-                        Done
+                        <span>Take Me To Contact</span>
+                        <ArrowRight size={13} weight="bold" />
                       </button>
-                    </div>
-                  ) : (
-                    <form onSubmit={handleInquirySubmit} className="space-y-3.5">
-                      <div>
-                        <span className="text-[10px] text-sky-400 uppercase tracking-widest">
-                          Let&rsquo;s Talk
-                        </span>
-                        <h2 className="font-bold text-xl text-white mt-0.5">
-                          Start Your Journey
-                        </h2>
-                        <p className="text-xs text-slate-400 mt-1">
-                          Have an app or site to build? Drop your brief below!
-                        </p>
-                      </div>
-
-                      <div>
-                        <label className="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">
-                          What are you building?
-                        </label>
-                        <div className="grid grid-cols-3 gap-1.5">
-                          {(['App', 'Website', 'Software'] as const).map((t) => (
-                            <button
-                              key={t}
-                              type="button"
-                              onClick={() => { sounds.playButtonTap(); setInquiryType(t); }}
-                              className={`py-1.5 px-2.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                                inquiryType === t
-                                  ? 'bg-[#ef5d52] text-white shadow-sm'
-                                  : 'bg-white/5 text-slate-400 hover:text-white'
-                              }`}
-                            >
-                              {t}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div>
-                        <label className="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">
-                          Your Email
-                        </label>
-                        <input
-                          type="email"
-                          required
-                          value={clientEmail}
-                          onChange={(e) => setClientEmail(e.target.value)}
-                          placeholder="your-email@gmail.com"
-                          className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-slate-500 text-xs focus:outline-none focus:border-sky-400 transition-colors"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">
-                          Project Brief
-                        </label>
-                        <textarea
-                          rows={3}
-                          required
-                          value={projectBrief}
-                          onChange={(e) => setProjectBrief(e.target.value)}
-                          placeholder="Tell me what you're thinking, features, or timeline..."
-                          className="w-full px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-slate-500 text-xs focus:outline-none focus:border-sky-400 transition-colors resize-none"
-                        />
-                      </div>
-
                       <button
-                        type="submit"
-                        className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-full text-white font-bold text-xs bg-[#ef5d52] hover:bg-[#df4f44] transition-colors cursor-pointer shadow-md"
+                        type="button"
+                        onClick={() => handleButtonClick(() => setActiveModal('none'))}
+                        className="py-2.5 px-4 rounded-full text-slate-300 hover:text-white font-bold text-xs bg-white/5 hover:bg-white/10 border border-white/10 transition-colors cursor-pointer text-center"
                       >
-                        <PaperPlaneRight size={13} weight="fill" />
-                        <span>Send Project Note</span>
+                        Close (x_x)
                       </button>
-                    </form>
-                  )}
-                </div>
-              )}
-
-              {/* MODAL 4: SUPER MARIO GAME OVER SOCIAL ERROR */}
-              {activeModal === 'socialError' && (
-                <div className="text-center py-4 space-y-4">
-                  {/* Retro 8-bit Banner */}
-                  <div className="space-y-1">
-                    <div className="text-3xl sm:text-4xl">💀 🍄 💀</div>
-                    <div className="font-bold text-xl sm:text-2xl text-rose-400 tracking-widest font-mono uppercase">
-                      GAME OVER!
                     </div>
                   </div>
+                )}
 
-                  <div className="text-3xl font-mono text-amber-300">
-                    ( x _ x )
-                  </div>
+                {/* MODAL 2: ABOUT -> CASUAL PERSONAL MAKER TONE (NOT FORMAL BIG TECH) */}
+                {activeModal === 'about' && (
+                  <div className="space-y-3 sm:space-y-3.5 py-1">
+                    <div>
+                      <span className="text-[10px] text-sky-400 uppercase tracking-widest font-bold">
+                        Hey there! 👋
+                      </span>
+                      <h2 className="font-bold text-lg sm:text-xl text-white mt-0.5">
+                        About AINXE Studios
+                      </h2>
+                    </div>
 
-                  <div className="space-y-2">
-                    <h3 className="font-bold text-base text-white">
-                      Oops! Mario Lost a Life...
-                    </h3>
-                    <p className="text-xs text-slate-300 leading-relaxed max-w-xs mx-auto">
-                      Sorry! The developer doesn&rsquo;t actually use social media. Just coding in peace by the lake! hehe x_x
+                    <p className="text-[11px] sm:text-xs text-slate-300 leading-relaxed">
+                      No formal big-tech corporate talk here! I&rsquo;m building <strong>AINXE</strong> as my personal project
+                      playground to craft clean software, quiet websites, and focused apps.
                     </p>
-                  </div>
 
-                  <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-[11px] text-slate-400 leading-relaxed text-left">
-                    👾 <strong>Want to talk about your project?</strong><br />
-                    No DMs or algorithms needed — just send a direct note through the Contact button!
-                  </div>
+                    <div className="p-3 rounded-xl bg-sky-500/10 border border-sky-500/20 text-[11px] sm:text-xs text-sky-200 leading-relaxed">
+                      ✨ <strong>Do you have a project, app, or website to build?</strong><br />
+                      I can definitely help you design and build that (with money, hehe 😉).
+                    </div>
 
-                  <div className="pt-2 flex items-center gap-2">
+                    <p className="text-[11px] sm:text-xs text-slate-400 leading-relaxed">
+                      Whether you need a custom web platform, a mobile app, or backend tooling — let&rsquo;s connect and make it happen.
+                    </p>
+
                     <button
                       type="button"
                       onClick={() => handleButtonClick(() => setActiveModal('contact'))}
-                      className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-full text-white font-bold text-xs bg-[#ef5d52] hover:bg-[#df4f44] transition-colors cursor-pointer shadow-md"
+                      className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-full text-white font-bold text-xs bg-[#ef5d52] hover:bg-[#df4f44] transition-colors cursor-pointer shadow-md mt-1"
                     >
-                      <span>Go To Contact</span>
-                      <ArrowRight size={13} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleButtonClick(() => setActiveModal('none'))}
-                      className="py-2.5 px-4 rounded-full text-slate-300 hover:text-white font-bold text-xs bg-white/5 hover:bg-white/10 border border-white/10 transition-colors cursor-pointer"
-                    >
-                      Revive (🍄)
+                      <span>Let&rsquo;s Build Something →</span>
                     </button>
                   </div>
-                </div>
-              )}
+                )}
+
+                {/* MODAL 3: CONTACT / INQUIRY */}
+                {activeModal === 'contact' && (
+                  <div className="py-1">
+                    {inquirySent ? (
+                      <div className="py-4 text-center space-y-3">
+                        <CheckCircle size={36} weight="duotone" className="text-emerald-400 mx-auto" />
+                        <h3 className="font-bold text-lg text-white">
+                          Message Sent! 🎉
+                        </h3>
+                        <p className="text-xs text-slate-300 max-w-xs mx-auto leading-relaxed">
+                          Got your note! I&rsquo;ll review your {inquiryType} project and reply directly to{' '}
+                          <strong className="text-white">{clientEmail}</strong> soon.
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setInquirySent(false);
+                            setClientEmail('');
+                            setProjectBrief('');
+                            setActiveModal('none');
+                          }}
+                          className="mt-2 px-5 py-2 rounded-full text-xs font-bold text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/10 transition-colors cursor-pointer"
+                        >
+                          Done
+                        </button>
+                      </div>
+                    ) : (
+                      <form onSubmit={handleInquirySubmit} className="space-y-3">
+                        <div>
+                          <span className="text-[10px] text-sky-400 uppercase tracking-widest font-bold">
+                            Let&rsquo;s Talk
+                          </span>
+                          <h2 className="font-bold text-lg sm:text-xl text-white mt-0.5">
+                            Start Your Journey
+                          </h2>
+                          <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5">
+                            Have an app or site to build? Drop your brief below!
+                          </p>
+                        </div>
+
+                        <div>
+                          <label className="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">
+                            What are you building?
+                          </label>
+                          <div className="grid grid-cols-3 gap-1.5">
+                            {(['App', 'Website', 'Software'] as const).map((t) => (
+                              <button
+                                key={t}
+                                type="button"
+                                onClick={() => { sounds.playButtonTap(); setInquiryType(t); }}
+                                className={`py-1.5 px-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                                  inquiryType === t
+                                    ? 'bg-[#ef5d52] text-white shadow-sm'
+                                    : 'bg-white/5 text-slate-400 hover:text-white'
+                                }`}
+                              >
+                                {t}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div>
+                          <label className="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">
+                            Your Email
+                          </label>
+                          <input
+                            type="email"
+                            required
+                            value={clientEmail}
+                            onChange={(e) => setClientEmail(e.target.value)}
+                            placeholder="your-email@gmail.com"
+                            className="w-full px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-slate-500 text-xs focus:outline-none focus:border-sky-400 transition-colors"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">
+                            Project Brief
+                          </label>
+                          <textarea
+                            rows={2}
+                            required
+                            value={projectBrief}
+                            onChange={(e) => setProjectBrief(e.target.value)}
+                            placeholder="Tell me what you're thinking, features, or timeline..."
+                            className="w-full px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white placeholder:text-slate-500 text-xs focus:outline-none focus:border-sky-400 transition-colors resize-none"
+                          />
+                        </div>
+
+                        <button
+                          type="submit"
+                          className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-full text-white font-bold text-xs bg-[#ef5d52] hover:bg-[#df4f44] transition-colors cursor-pointer shadow-md mt-1"
+                        >
+                          <PaperPlaneRight size={13} weight="fill" />
+                          <span>Send Project Note</span>
+                        </button>
+                      </form>
+                    )}
+                  </div>
+                )}
+
+                {/* MODAL 4: SUPER MARIO GAME OVER SOCIAL ERROR */}
+                {activeModal === 'socialError' && (
+                  <div className="text-center py-1 space-y-3 sm:space-y-3.5">
+                    {/* Retro 8-bit Banner */}
+                    <div className="space-y-0.5">
+                      <div className="text-2xl sm:text-3xl">💀 🍄 💀</div>
+                      <div className="font-bold text-lg sm:text-xl text-rose-400 tracking-widest font-mono uppercase">
+                        GAME OVER!
+                      </div>
+                    </div>
+
+                    <div className="text-2xl sm:text-3xl font-mono text-amber-300">
+                      ( x _ x )
+                    </div>
+
+                    <div className="space-y-1">
+                      <h3 className="font-bold text-sm sm:text-base text-white">
+                        Oops! Mario Lost a Life...
+                      </h3>
+                      <p className="text-[11px] sm:text-xs text-slate-300 leading-relaxed max-w-xs mx-auto">
+                        Sorry! The developer doesn&rsquo;t actually use social media. Just coding in peace by the lake! hehe x_x
+                      </p>
+                    </div>
+
+                    <div className="p-2.5 sm:p-3 rounded-xl bg-white/[0.04] border border-white/10 text-[11px] text-slate-400 leading-relaxed text-left">
+                      👾 <strong className="text-white">Want to talk about your project?</strong><br />
+                      No DMs or algorithms needed — just send a direct note through the Contact button!
+                    </div>
+
+                    <div className="pt-1.5 flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => handleButtonClick(() => setActiveModal('contact'))}
+                        className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-4 rounded-full text-white font-bold text-xs bg-[#ef5d52] hover:bg-[#df4f44] transition-colors cursor-pointer shadow-md"
+                      >
+                        <span>Go To Contact</span>
+                        <ArrowRight size={13} weight="bold" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleButtonClick(() => setActiveModal('none'))}
+                        className="py-2.5 px-4 rounded-full text-slate-300 hover:text-white font-bold text-xs bg-white/5 hover:bg-white/10 border border-white/10 transition-colors cursor-pointer text-center"
+                      >
+                        Revive (🍄)
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             </motion.div>
           </motion.div>
         )}

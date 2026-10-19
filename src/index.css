@@ -81,3 +81,19 @@
 .animate-pulse-glow {
   animation: serene-pulse-glow 5s ease-in-out infinite;
 }
+
+/* Slim aesthetic scrollbar for modals on small mobile screens */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
