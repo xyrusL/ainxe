@@ -1,0 +1,102 @@
+import React, { useEffect, useRef } from 'react';
+
+interface Particle {
+  x: number;
+  y: number;
+  size: number;
+  speedX: number;
+  speedY: number;
+  opacity: number;
+  baseOpacity: number;
+  fadeSpeed: number;
+  hue: number;
+}
+
+export const ParticleBackdrop: React.FC = () => {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animationFrameId: number;
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    const handleResize = () => {
+      if (!canvas) return;
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    const particles: Particle[] = [];
+    const count = Math.min(55, Math.floor(width / 24));
+
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: Math.random() * 2 + 0.8,
+        speedX: (Math.random() - 0.5) * 0.25,
+        speedY: (Math.random() - 0.5) * 0.25 - 0.1, // subtle upward drift like fireflies
+        opacity: Math.random() * 0.5 + 0.2,
+        baseOpacity: Math.random() * 0.4 + 0.2,
+        fadeSpeed: (Math.random() * 0.01 + 0.005) * (Math.random() > 0.5 ? 1 : -1),
+        hue: Math.random() > 0.3 ? 195 : 35, // mostly calm teal/cyan, occasional warm firefly amber
+      });
+    }
+
+    const render = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.x += p.speedX;
+        p.y += p.speedY;
+        p.opacity += p.fadeSpeed;
+
+        if (p.opacity > 0.8 || p.opacity < 0.1) {
+          p.fadeSpeed = -p.fadeSpeed;
+        }
+
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        if (p.hue === 195) {
+          ctx.fillStyle = `rgba(56, 189, 248, ${Math.max(0, p.opacity)})`;
+          ctx.shadowColor = 'rgba(56, 189, 248, 0.4)';
+        } else {
+          ctx.fillStyle = `rgba(251, 191, 36, ${Math.max(0, p.opacity)})`;
+          ctx.shadowColor = 'rgba(251, 191, 36, 0.4)';
+        }
+        ctx.shadowBlur = 6;
+        ctx.fill();
+      }
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 pointer-events-none z-0 opacity-60"
+      aria-hidden="true"
+    />
+  );
+};

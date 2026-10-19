@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-deep: #070b14;
+    --accent-teal: #38bdf8;
+    --accent-coral: #ef5d52;
+    --text-primary: #e6eef8;
+    --text-muted: #94a3b8;
+  }
+
+  body {
+    font-family: 'Space Mono', monospace;
+    background-color: var(--bg-deep);
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2, h3, h4, button, input, textarea, .font-mono-cozy {
+    font-family: 'Space Mono', monospace;
+  }
+}
+
+/* Nav Pill Button - Balanced height matching navbar links */
+.nav-pill-btn {
+  @apply inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-full text-white font-bold text-xs transition-all duration-200 cursor-pointer shadow-md;
+  background: #ef5d52;
+}
+
+.nav-pill-btn:hover {
+  background: #df4f44;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(239, 93, 82, 0.45);
+}
+
+/* Hero Pill buttons */
+.hero-pill-primary {
+  @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-white font-bold text-xs sm:text-sm transition-all duration-200 cursor-pointer shadow-md;
+  background: #ef5d52;
+}
+
+.hero-pill-primary:hover {
+  background: #df4f44;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(239, 93, 82, 0.45);
+}
+
+.hero-pill-secondary {
+  @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-[#d6e3f0] font-bold text-xs sm:text-sm transition-all duration-200 cursor-pointer;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+}
+
+.hero-pill-secondary:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+@keyframes serene-pulse-glow {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.65;
+    transform: scale(1.08);
+  }
+}
+
+.animate-pulse-glow {
+  animation: serene-pulse-glow 5s ease-in-out infinite;
+}
